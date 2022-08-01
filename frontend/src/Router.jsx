@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 import Home from './containers/Home';
 import Signup from './containers/Signup';
-import Item from './components/Common/Item';
 import Cart from './containers/Cart';
 import Order from './containers/Order';
 import Signin from './containers/Signin';
