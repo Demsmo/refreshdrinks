@@ -1,19 +1,18 @@
-import { createStore as reduxCreateStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { legacy_createStore as reduxCreateStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import thunk from 'redux-thunk';
 
 import { PostsReducer } from '../posts/reducers';
 import { UserReducer } from '../users/reducers';
-import { ItemsReducer } from '../items/reducers';
+import { ItemReducer } from '../item/reducers';
 import { CartsReducer } from '../carts/reducers';
 
 export default function createStore(history) {
     return reduxCreateStore(
         combineReducers({
             router: connectRouter(history),
-            posts: PostsReducer,
-            users: UserReducer,
-            items: ItemsReducer,
+            user: UserReducer,
+            item: ItemReducer,
             carts: CartsReducer
         }),
         compose(

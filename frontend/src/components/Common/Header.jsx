@@ -1,54 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { signOut } from '../../reducks/users/operations';
-import { useDispatch } from 'react-redux';
-import { push } from 'connected-react-router';
-import cart from '../../assets/img/r-img/cart.svg';
-import logo from '../../assets/img/r-img/logo.svg';
-import user from '../../assets/img/r-img/user.svg';
+import React from 'react'
+import logo from '../../assets/img/refresh icon.svg'
+import search from '../../assets/img/search icon.svg'
+import cart from '../../assets/img/cart icon.svg'
+import user from '../../assets/img/user icon.svg'
+import background from '../../assets/img/header background.png'
+import {Link} from 'react-router-dom'
+
 export default function Header() {
-    const dispatch = useDispatch();
-    const key = localStorage.getItem('LOGIN_USER_KEY');
-    const [checkUser, setCheckUser] = useState(false);
-
-    const signOutButton = () => {
-        dispatch(signOut());
-        setCheckUser(false);
-        dispatch(push('/signin'));
-    };
-
-    useEffect(() => {
-        if (key !== null) {
-            setCheckUser(true);
-        }
-    }, [key]);
-
-    return (
-        <>
-            <header>
-                <div class="logo">
-                    <a href="/">
-                        {' '}
-                        <img src={logo} alt="logo" />
-                    </a>
-                </div>
-                <nav>
-                        {checkUser ? (
-                            <span className="signin" onClick={signOutButton}>
-                                Logout
-                            </span>
-                        ) : (
-                            <a class="signin" href="Signin">
-                                <img src={user} alt="user" />
-                            </a>
-                        )}
-                        {checkUser && (
-                            <a href="Cart">
-                                {' '}
-                                <img src={cart} alt="" />
-                            </a>
-                        )}
-                </nav>
-            </header>
-        </>
-    );
+  return (
+    <div>
+      <header>
+        <div class="headerbar">
+            <img src={logo} alt="" id="topicon"/>
+            
+            
+            <div class="icons">
+                <Link to='/cart'>
+                <img src={cart} alt="" id="carticon"/>
+                </Link>
+                <img src={user} alt="" id="usericon"/>
+            </div>
+           
+        </div>
+       
+        
+    </header>
+    </div>
+  )
 }

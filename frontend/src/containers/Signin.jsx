@@ -1,85 +1,53 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { signIn } from '../reducks/users/operations';
-import Home from '../containers/Home';
-import CrossX from '../assets/img/cross.png';
-import { push } from 'connected-react-router';
+import React from 'react'
+import Exit from '../assets/img/exit button.svg'
+import Home from './Home'
+import { push } from 'connected-react-router'
+import { useDispatch } from 'react-redux'
+import { signIn } from '../reducks/users/operations'
+import { useState } from 'react'
 
-const Signin = () => {
-    const dispatch = useDispatch();
+export default function Signin() {
+  const dispatch = useDispatch()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-    const closeButton = () => {
-        dispatch(push('/'));
-    };
+  const inputEmail = (event) => {
+    setEmail(event.target.value)
+  }
 
-    const [email, setEmail] = useState(''),
-        [password, setPassword] = useState('');
+  const inputPassword = (event) => {
+    setPassword(event.target.value)
+  }
 
-    const inputEmail = event => {
-        setEmail(event.target.value);
-    };
+  const signInButton = () => {
+    dispatch(signIn(email,password))
+    setEmail('')
+    setPassword('')
+  }
 
-    const inputPassword = event => {
-        setPassword(event.target.value);
-    };
+  return (
+    <>
+     <section id="signin">
+        <div class="signin-card">
+            <img onClick={() => (dispatch(push('/')))} src={Exit} alt="" class="exitbutton" />
+            <h1 class="signincardtitle">Login</h1>
+            <p class="signincarddescription">Log in to place an order</p>
+            <input onChange={inputEmail} type="text" className='usernameandemail' placeholder="Email" />
+            <input onChange={inputPassword} type="password" placeholder="Password" />
+            <div class="terms">
+                {/* <input type="checkbox" />
+                <p>Keep Me Signed In</p> */}
+                {/* <a href="" class="forgotpassword">Forgot Password?</a> */}
+            </div>
+            
+            <button onClick={signInButton} class="signinbutton">Sign In</button>
 
-    const signInButton = () => {
-        dispatch(signIn(email, password));
-        setEmail('');
-        setPassword('');
-    };
-    return (
-        <>
-            <Home />
-            <section className="gradient"></section>
-            <section class="popup">
-                <div class="popup-inner">
-                    <span onClick={closeButton}>
-                        <a href="/">
-                            {' '}
-                            <img src={CrossX} class="close" />{' '}
-                        </a>
-                    </span>
-                </div>
-                <div class="popup-preview">
-                    <div class="input">
-                        <div className="heading-sign-in">
-                            <h2>Log In</h2>
-                            <p> Login to Refresh Cool Drinks</p>
-                        </div>
-                        <div className="input-feilds">
-                            <input
-                                type="email"
-                                onChange={inputEmail}
-                                required
-                                placeholder="Email address"
-                                value={email}
-                            />{' '}
-                            <br />
-                            <br />
-                            <input
-                                type="password"
-                                onChange={inputPassword}
-                                required
-                                placeholder="Password"
-                                vlaue={password}
-                            />
-                            <br />
-                            <button class="button" onClick={signInButton}>
-                                SIGN IN
-                            </button>
-                            <p class="bottom">
-                                Not a Member?{' '}
-                                <a href="/signup">
-                                    <u>Join Us.</u>
-                                </a>{' '}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </>
-    );
-};
+            <div onClick={() => (dispatch(push('/signup')))} >Not a member yet?          Sign Up</div>
+        </div>
 
-export default Signin;
+    </section>
+
+    <Home />
+    </>
+  )
+}

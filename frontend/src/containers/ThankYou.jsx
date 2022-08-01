@@ -1,35 +1,23 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { getUser } from '../reducks/users/selectors';
+import React from 'react'
 
-const ThankYou = () => {
-    const selector = useSelector(state => state);
-    const user = JSON.parse(localStorage.getItem('LOGIN_USER_KEY'));
-    useEffect(() => {
-        console.log(user);
-    }, []);
-    return (
-        <div>
-            <div class="box">
-                <p>Thank you for your ordering</p>
+export default function Thankyou() {
+  return (
+    <>
+        <section className='thankyou'>
+            <div className='banner'>
+                <h1 className='thankyoubanner'>Thank you for ordering</h1>
             </div>
-
-            <div class="message">
-                <p>
-                    Thank you for your ordering <span class="color">{user.user_name}</span>. We received your request.{' '}
-                    <br />
-                    <br />
-                    Our staff will be contacting with you to tell next steps.
-                </p>
+            <div className='messagediv'>
+                <h2 className='message'>Thank you for ordering. We recieved your request. <br />
+                Our staff will be contacting with you to tell next steps.
+                </h2>
             </div>
+            <a href="/">
+            <button className='backtohome'>BACK TO HOME</button></a>
 
-            <div class="backhome">
-                <a href="/">
-                    <button>Back to Home</button>
-                </a>
-            </div>
-        </div>
-    );
-};
+        </section>
+        
 
-export default ThankYou;
+    </>
+  )
+}

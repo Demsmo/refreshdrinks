@@ -1,24 +1,32 @@
 const initialState = {
     posts: {
-        list: []
+        results: [],
+        count: 0,
+        next: null,
+        previous: null
     },
+
     user: {
-        user_name: '',
+        username: '',
         email: '',
         token: '',
-        token_expires_at: ''
+        token_expires_at: '',
     },
-    items: {
-        list: []
+
+    item: {
+        list: [],
     },
+
     carts: {
         list: [],
         subtotal: 0
     },
+
     order: {
         list: [],
-        subtotal: 0
+        subtotal: 0,
     }
+
 };
 
 export default initialState;

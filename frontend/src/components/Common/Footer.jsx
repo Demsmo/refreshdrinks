@@ -1,45 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import logo from '../../assets/img/r-img/logo.svg';
+import React from 'react'
+import icon from '../../assets/img/footer icon.svg'
 
-export default function Footer({ price }) {
-    let pageUrl = window.location.toString();
-    const [showCheckoutButton, setShowCheckoutButton] = useState(true);
-    const key = localStorage.getItem('LOGIN_USER_KEY');
+export default function Footer() {
+  return (
+    <div>
+      <footer>
+        <img src={icon} alt=""/>
+        
+        <h2 class="slogan">Premium Quality soft drinks, hot drinks, soda & energy drinks at the best and most affordable price.<br/>
+            we have a new offer every day for 365 days</h2>
 
-    useEffect(() => {
-        if (pageUrl.includes('cart')) {
-            setShowCheckoutButton(false);
-        }
-    }, []);
+        <h2 class="contact">Contact</h2>
+        
+        <h2 class="info">E-maildrink@refresh.com | Hotline: +1 131 138 138</h2>
 
-    return (
-        <footer>
-            {key !== null && (
-                <div class="foot">
-                    <h2>Subtotal: ${Math.round(price)}</h2>
-                    {showCheckoutButton ? (
-                        <a href="/cart">
-                            <button class="btn">Check Your Cart</button>
-                        </a>
-                    ) : (
-                        <a href="/Shipping">
-                            <button class="btn">Checkout</button>
-                        </a>
-                    )}
-                </div>
-            )}
-            <div class="refresh">
-                <img src={logo} alt="logo" />
-                <p>
-                    Premium Quality soft drinks, hot drinks, soda & energy drinks at the best and most affordable price.
-                </p>
-                <p>we have a new offer every day for 365 days</p>
-                <span>Contact</span>
-                <p>E-maildrink@refresh.com | Hotline: +1 131 138 138</p>
-            </div>
-            <div className="copyright">
-                <p>DESIGN BY REFRESH - © 2022. ALL RIGHTS RESERVED.</p>
-            </div>
-        </footer>
-    );
+        <hr/>
+
+        <h2 class="rights">DESIGN BY REFRESH - © 2022. ALL RIGHTS RESERVED.</h2>
+    </footer>
+    </div>
+  )
 }

@@ -29,9 +29,9 @@ SECRET_KEY = 'django-insecure-ov#r^^&xv&^0vmc(zj&h_t^$*52@8jicn=%*z*@s-=li!s_p@=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-CORS_ALLOW_ALL_ORIGINS = True
-# CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://127.0.0.1:3000', 'https://frontend-electric-views.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'forum-prod-api.herokuapp.com']
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://127.0.0.1:3000', 'https://forum-prod-frontend.herokuapp.com']
 
 # Application definition
 
@@ -45,13 +45,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.users', 
-    'apps.carts', 
-    'apps.orders',
-    'apps.items',
+    'apps.posts',
     'cloudinary',
     'django_filters',
-]
+    'apps.cart',
+    'apps.item',
+    'apps.order',
+    'apps.user',
+]   
 
 MIDDLEWARE = [
     # To allow CORS (Cross-origin resource sharing)
@@ -90,24 +91,24 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 # Heroku Database
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'd4q4mudf1n29bm',
-#         'USER': 'lquaznuwssmnfx',
-#         'PORT': 5432,
-#         'HOST': 'ec2-34-227-120-79.compute-1.amazonaws.com',
-#         'PASSWORD':'7db53389906a6babc6b364deabbd91b7b09cd29152d818fe7b6dd273eaa7ea4b',
-#     }
-# }
-
-# Local Database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd6etf9h5d86c00',
+        'USER': 'tcqszsdtrahrea',
+        'PORT': 5432,
+        'HOST': 'ec2-50-19-255-190.compute-1.amazonaws.com',
+        'PASSWORD': '220cd4fc70d8541e071eb962713e8c2233177316207334b30f89ff42d4f46fbd',
     }
 }
+
+# Local Database
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # Heroku PostgreSQL Database
 django_heroku.settings(locals())
@@ -158,13 +159,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 cloudinary.config(
-    cloud_name="www-techis-io",
-    api_key="891747999686865",
-    api_secret="seWq_dLQRcb7O5eMY-XdAuznU_w",
+    cloud_name="techis",
+    api_key="886187759951178",
+    api_secret="WGcWrWfkPlxdOCdlFaLTdjSNtfo",
     secure=True
 )
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
 }
-

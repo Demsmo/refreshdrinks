@@ -1,98 +1,60 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { signUp } from '../reducks/users/operations';
-import CrossX from '../assets/img/cross.png';
-import Home from '../containers/Home';
-import { push } from 'connected-react-router';
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import Exit from '../assets/img/exit button.svg'
+import Home from './Home'
+import { push } from 'connected-react-router'
+import { signUp } from '../reducks/users/operations'
 
-const SignUp = () => {
-    const dispatch = useDispatch();
+export default function Signup() {
+  const dispatch = useDispatch()
+  const close = () => {dispatch(push('/'))}
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('')
+  
+  const inputUserName = (event) => {
+    setUsername(event.target.value)
+    
+  }
+  const inputEmail = (event) => {
+    setEmail(event.target.value)
 
-    const closeButton = () => {
-        dispatch(push('/'));
-    };
-    const [user_name, setUserName] = useState(''),
-        [email, setEmail] = useState(''),
-        [password, setPassword] = useState('');
-    const inputUserName = event => {
-        setUserName(event.target.value);
-    };
-    const inputEmail = event => {
-        setEmail(event.target.value);
-    };
-    const inputPassword = event => {
-        setPassword(event.target.value);
-    };
-    const signUpButton = () => {
-        dispatch(signUp(user_name, email, password));
-        setUserName('');
-        setEmail('');
-        setPassword('');
-    };
-    return (
-        <>
-            <Home />
-            <section className="gradient"></section>
-            <section class="popup">
-                <div class="popup-inner">
-                    <div class="popup-preview">
-                        <span onClick={closeButton}>
-                            <a href="/">
-                                <img src={CrossX} class="close" />{' '}
-                            </a>
-                        </span>
-                        <div class="input">
-                            <div className="heading-sign-in">
-                                <h2>Create an account and discover the benefits</h2>
-                                <p> Sign Up to Refresh Cool Drinks</p>
-                            </div>
-                            <div className="input-feilds">
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    onChange={inputUserName}
-                                    placeholder="Enter User Name"
-                                    value={user_name}
-                                    required
-                                />
-                                <br />
-                                <br />
-                                <input
-                                    type="email"
-                                    class="form-control"
-                                    onChange={inputEmail}
-                                    placeholder="Enter email"
-                                    value={email}
-                                    required
-                                />
-                                <br />
-                                <br />
-                                <input
-                                    type="password"
-                                    class="form-control"
-                                    onChange={inputPassword}
-                                    placeholder="Password"
-                                    value={password}
-                                    required
-                                />
-                                <br />
+  }
 
-                                <button class="button" onClick={signUpButton}>
-                                    SIGN UP
-                                </button>
-                                <p class="sign-up-bottom">
-                                    Already a Member?{' '}
-                                    <a href="/signin">
-                                        <u>Sign In.</u>
-                                    </a>{' '}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </>
-    );
-};
+  const inputPassword = (event) => {
+    setPassword(event.target.value)
+  }
 
-export default SignUp;
+  const signUpButton = () => {
+    dispatch(signUp(username,email,password))
+    setEmail('')
+    setUsername('')
+    setPassword('')
+  }
+  return (
+    <>
+        <section id="signup">
+        <div class="signup-card">
+            <img onClick={close} src={Exit} alt="" class="exitbutton"/>
+            <h1 class="signupcardtitle">Create an account and 
+                discover the benefits</h1>
+            <p class="signupcarddescription">Sign up to create your order and discover the benefits of Refresh CoolDrinks</p>
+            <input type="text" onChange={inputUserName} className='usernameandemail' placeholder="UserName"/>
+            <input type="text" onChange={inputEmail} className='usernameandemail' placeholder="Email"/>
+            <input type="password" onChange={inputPassword} placeholder="Password"/>
+            <div class="terms">
+                {/* <input type="checkbox"/>
+                <p>I agree to the Google Terms of Service and
+                Privacy Policy</p> */}
+            </div>
+            
+            <button class="signupbutton" onClick={signUpButton}>Sign Up</button>
+            <a href="/signin" class="alreadyamember">Already a member?</a>
+
+        </div>
+
+    </section>
+    <Home />
+    </>
+  )
+}

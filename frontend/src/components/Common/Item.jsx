@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCart, increaseCart, decreaseCart } from '../../reducks/carts/operations';
 import { getCarts, getSubtotal } from '../../reducks/carts/selectors';
-import { push } from 'connected-react-router';
+import Fanta from '../../assets/img/fanta image.png'
+import { ADD_CART } from '../../reducks/carts/actions'
+import { addCart, increaseCart, decreaseCart } from '../../reducks/carts/operations'
+import { push } from 'connected-react-router'
 
-const Item = ({ item }) => {
+export default function Item({item}) {
     const selector = useSelector(state => state);
     const dispatch = useDispatch();
     const carts = getCarts(selector);
@@ -12,10 +14,16 @@ const Item = ({ item }) => {
     const [particularCart, setParticularCart] = useState(null);
     const key = localStorage.getItem('LOGIN_USER_KEY');
 
+
+    const clickAddCart = () => {
+        if (key) {
+            dispatch(addCart(item));
+        } else {
+            dispatch(push('/signin'));
+        }
+    };
     useEffect(() => {
         if (carts != undefined && carts.length > 0) {
-            console.log('carts');
-            console.log(carts);
             let matchedCarts = carts.filter(cart => cart.item.id == item.id);
             console.log('matchedCarts');
             console.log(matchedCarts);
@@ -25,36 +33,30 @@ const Item = ({ item }) => {
                 setParticularCart(null);
             }
         }
-    }, [subtotal]);
+    console.log(subtotal);
 
-    const clickAddCart = () => {
-        if (key) {
-            dispatch(addCart(item));
-        } else {
-            dispatch(push('/signin'));
-        }
-    };
+    }, [subtotal]);
     const clickPlusCart = () => {
         dispatch(increaseCart(particularCart.id));
     };
     const clickMinusCart = () => {
         dispatch(decreaseCart(particularCart.id));
     };
+
+
     return (
         <>
-            <div className="item-background">
-                <center>
-                    <div className="item-image">
-                        <img src={item.image} alt="Items" />
-                    </div>
-                </center>
-            </div>
-            <div className="item-bottom">
-                <div className="item-price">
-                    <h5>{item.name}</h5>
-                    <p>${item.price}</p>
+
+            <div class="itemcard">
+                <div class="itemimage">
+                    <img src={'https://res.cloudinary.com/techis/'+item.image} alt="" id="image" />
                 </div>
-                {particularCart && particularCart.quantity >= -1 ? (
+                <div class="itemdetails">
+                    <div class="iteminfo">
+                        <h2 class="name">{item.name}</h2>
+                        <h2 class="price">{'$'+item.price}</h2>
+                    </div>
+                    {subtotal!=0 && particularCart && particularCart.quantity > 0 ? (
                     <div class="added-cart">
                         <span id="minus" onClick={clickMinusCart}>
                             －
@@ -69,9 +71,9 @@ const Item = ({ item }) => {
                         ADD TO CART
                     </button>
                 )}
+                </div>
             </div>
-        </>
-    );
-};
 
-export default Item;
+        </>
+    )
+}

@@ -4,6 +4,7 @@ import createStore from './reducks/store/store';
 import App from './App';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
+import {BrowserRouter} from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import * as History from 'history';
 
@@ -13,7 +14,9 @@ export const store = createStore(history);
 ReactDOM.render(
     <Provider store={store}>
         <ConnectedRouter history={history}>
-            <App />
+        <BrowserRouter>
+      <App />
+    </BrowserRouter>
         </ConnectedRouter>
     </Provider>,
     document.getElementById('root')
